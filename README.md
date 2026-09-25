@@ -113,6 +113,7 @@ required variable.
 | `DATABASE_URL` | yes | PostgreSQL connection string |
 | `GOOGLE_API_KEY` | for reviews | Gemini key used by the review pipeline |
 | `ALLOWED_ORIGINS` | no | Comma-separated browser origins. Defaults to `*` |
+| `ADMIN_TOKEN` | no | When set, `POST /conference/create` requires an `X-Admin-Token` header |
 | `PORT` | no | Defaults to 10000 |
 
 ## Health checks
@@ -155,3 +156,23 @@ Render's free PostgreSQL instances expire 30 days after creation and are
 deleted after a further 14-day grace period, taking their data with them. If
 the API stops responding after a few months of quiet, check whether the
 database still exists before debugging anything else.
+
+
+## Conferences
+
+Conferences are data, not code. There is no fixed list: the `conferences`
+table holds a name and an optional free-text `guidelines` field that is fed to
+the review prompt, so each conference can carry its own review criteria.
+
+Create one:
+
+```bash
+curl -X POST "$API/conference/create" \
+  -H 'Content-Type: application/json' \
+  -d '{"name": "ICML 2026"}'
+```
+
+`GET /conference/get-list` returns `200 []` when none exist. It does not
+return 404: an empty collection is not a missing endpoint, and clients that
+treat any non-2xx response as an error render nothing instead of an empty
+state.
