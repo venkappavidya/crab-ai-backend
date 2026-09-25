@@ -1,21 +1,80 @@
-import google.generativeai as genai
-import os
 import json
+import os
+import time
+
+from google import genai
 
 from logging_config import logger
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+# Overridable so the model can be changed without a code edit. Google retires
+# model ids on a rolling basis and the call then fails with a 404.
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")
+
 if not GEMINI_API_KEY:
-    # configure(api_key=None) succeeds and fails later at call time with
-    # "API key not valid", which points at the key rather than at its absence.
     logger.warning(
         "GEMINI_API_KEY is not set. Paper review and summary calls will fail "
-        "with API_KEY_INVALID until it is configured."
+        "until it is configured."
     )
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-2.0-flash')
+client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
+
+
+def _require_client():
+    if client is None:
+        raise RuntimeError("GEMINI_API_KEY is not set, so the review pipeline cannot run")
+    return client
+
+
+def _upload(file_path, display_name=None):
+    """Upload a file and wait for the File API to finish processing it.
+
+    A freshly uploaded file is PROCESSING for a moment, and referencing it
+    before it becomes ACTIVE fails with an unhelpful INVALID_ARGUMENT.
+    """
+    c = _require_client()
+    handle = c.files.upload(file=file_path)
+    for _ in range(15):
+        if str(handle.state) != "FileState.PROCESSING":
+            break
+        time.sleep(1)
+        handle = c.files.get(name=handle.name)
+    if str(handle.state) == "FileState.FAILED":
+        raise RuntimeError("Gemini could not process the uploaded file")
+    return handle
+
+
+def _generate(prompt, handle, attempts=3):
+    """Call the model, retrying the 503 the API returns when it is busy."""
+    c = _require_client()
+    last = None
+    for attempt in range(attempts):
+        try:
+            return c.models.generate_content(model=GEMINI_MODEL, contents=[prompt, handle])
+        except Exception as exc:  # noqa: BLE001 - retried below
+            last = exc
+            if "503" not in str(exc) and "UNAVAILABLE" not in str(exc):
+                raise
+            logger.warning("Gemini busy (attempt %d/%d), retrying", attempt + 1, attempts)
+            time.sleep(2 * (attempt + 1))
+    raise last
+
+
+def _extract_json(text):
+    """Pull the JSON object out of the reply, fenced or not."""
+    if text is None:
+        raise ValueError("Gemini returned an empty response")
+    if "```json" in text:
+        text = text.split("```json", 1)[1].split("```", 1)[0]
+    elif "```" in text:
+        text = text.split("```", 1)[1].split("```", 1)[0]
+    else:
+        start, end = text.find("{"), text.rfind("}")
+        if start == -1 or end == -1:
+            raise ValueError("Gemini response contained no JSON object")
+        text = text[start:end + 1]
+    return json.loads(text.strip())
 
 def get_prompt(paper_title, conference, guidelines=None):
     prompt = '''You are an expert reviewer for the {conference} conference, responsible for evaluating research papers with depth, fairness, and accuracy. **Your primary responsibility is to create clear score differentiation between three tiers of papers:**
@@ -284,7 +343,7 @@ Your review must strictly follow the below structured JSON format:
 
 
 def generate_paper_summary(file_path):
-    file = genai.upload_file(file_path, display_name="My Document")
+    file = _upload(file_path)
     
     prompt =  """
         Analyze and summarize each section in this research paper. 
@@ -295,28 +354,16 @@ def generate_paper_summary(file_path):
             'author':['author1','author2'], 
             'summary':'summary text'}"""
 
-    response = model.generate_content(
-        [prompt, file]
-    )
-
-    data = response.text.split("```json")[1].strip().split("```")[0]
-    data = json.loads(data)
-
-    return data 
+    response = _generate(prompt, file)
+    return _extract_json(response.text)
 
 
 
 def get_paper_review(conference, title, file_path, guidelines=None):
     prompt = get_prompt(title, conference, guidelines)
-    file = genai.upload_file(file_path, display_name=title)
-    
-    
-    response = model.generate_content(
-        [prompt, file]
-    )
-    print(response.text)
-    data = response.text.split("```json")[1].strip().split("```")[0]
-    data = json.loads(data)
+    file = _upload(file_path, display_name=title)
+    response = _generate(prompt, file)
+    data = _extract_json(response.text)
 
     return data 
 
