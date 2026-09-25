@@ -48,8 +48,8 @@ selective each one is:
 | ICML | 7.5+ | 6.5-7.4 | 5.0-6.4 | below 5.0 |
 | ICLR | 7.0+ | 6.0-6.9 | 4.5-5.9 | below 4.5 |
 
-The exceptional-paper bonuses are preserved everywhere, so a final score can
-still exceed 10 and is capped at 11.
+The exceptional-paper bonuses are preserved everywhere, but the final score
+is capped at 10 in the prompt and again in code after parsing.
 
 These weights and thresholds are a calibration, not official numbers. No
 venue publishes a dimension weighting. Edit the `.txt` files and regenerate

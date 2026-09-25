@@ -126,8 +126,9 @@ def health_gemini():
     """Report what the process sees for GEMINI_API_KEY, and whether it works.
 
     Reports shape only, never the value: whether it is set, its length, its
-    first four characters, and whether it carries stray whitespace. Keys issued
-    by AI Studio begin with AIza; anything else is the wrong credential type.
+    first four characters, and whether it carries stray whitespace. Several key
+    formats are valid, so the prefix is informational rather than a verdict;
+    the live check is what decides.
     """
     raw = os.environ.get("GEMINI_API_KEY")
     if raw is None:
@@ -142,19 +143,26 @@ def health_gemini():
         "configured": True,
         "length": len(raw),
         "prefix": stripped[:4],
-        "looks_like_ai_studio_key": stripped.startswith("AIza"),
         "has_surrounding_whitespace": raw != stripped,
         "also_sees_legacy_GOOGLE_API_KEY": "GOOGLE_API_KEY" in os.environ,
     }
 
-    try:
-        import google.generativeai as genai
+    info["model"] = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")
 
-        genai.configure(api_key=stripped)
-        names = [m.name for m in genai.list_models()][:1]
+    try:
+        from google import genai
+
+        probe = genai.Client(api_key=stripped)
+        # Probe with the call the pipeline actually makes. models.list() returns
+        # 401 for key formats that generate_content accepts, so it would report
+        # a working key as broken.
+        probe.models.generate_content(model=info["model"], contents="ok")
+        info["key_accepted"] = True
+        info["model_available"] = True
         info["live_check"] = "ok"
-        info["example_model"] = names[0] if names else None
     except Exception as exc:  # noqa: BLE001 - reported, not raised
+        info.setdefault("key_accepted", False)
+        info.setdefault("model_available", False)
         info["live_check"] = "failed"
         info["error"] = _redact(f"{type(exc).__name__}: {exc}")[:300]
     return info

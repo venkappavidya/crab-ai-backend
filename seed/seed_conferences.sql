@@ -60,8 +60,8 @@ ICML weights soundness and originality equally with significance. Its own overal
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 
@@ -129,8 +129,8 @@ ARR treats soundness as the primary judgement and excitement as explicitly ortho
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 
@@ -198,8 +198,8 @@ NeurIPS asks whether others are likely to build on the work, so significance and
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 
@@ -265,8 +265,8 @@ ICLR states that a lack of state-of-the-art results is not by itself grounds for
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 
@@ -341,8 +341,8 @@ ICML weights soundness and originality equally with significance. Its own overal
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 
@@ -410,8 +410,8 @@ ARR treats soundness as the primary judgement and excitement as explicitly ortho
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 
@@ -479,8 +479,8 @@ NeurIPS asks whether others are likely to build on the work, so significance and
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 
@@ -546,8 +546,8 @@ ICLR states that a lack of state-of-the-art results is not by itself grounds for
 Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
 least three categories including Originality, and either Technical
 Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
-in either Technical Soundness or Significance gains 1.0. The final score may
-exceed 10 and is capped at 11.
+in either Technical Soundness or Significance gains 1.0. Apply the bonuses,
+then cap the final score at 10. It must never exceed 10.
 
 Decision thresholds for this venue, which replace the general ones above:
 

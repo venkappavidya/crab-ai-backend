@@ -256,7 +256,7 @@ The final score should be calculated as follows:
 
 These bonuses ensure that exceptional papers receive appropriately high scores that distinguish them from merely good papers, reflecting their higher contribution to the field.
 
-**IMPORTANT**: The highest possible final score is 11/10, reserved for papers that make truly exceptional contributions. Do not hesitate to give high scores to papers that represent significant advances in the field.
+**IMPORTANT**: The final score is out of 10 and must never exceed 10. Apply the bonuses above, then cap the result at 10.0. A score of 10/10 is reserved for papers that make truly exceptional contributions. Do not hesitate to award high scores to papers that represent significant advances in the field.
 
 .5-3.5) for most papers. Make definitive judgments about quality.
 
@@ -359,11 +359,34 @@ def generate_paper_summary(file_path):
 
 
 
+def _cap_final_score(data, maximum=10.0):
+    """Hold the final score at or below the maximum.
+
+    The prompt asks for this, but a model instruction is not a guarantee. The
+    score is written to the database and rendered in the UI, so it is enforced
+    here as well.
+    """
+    raw = data.get("final_score")
+    if raw is None:
+        return data
+    try:
+        value = float(str(raw).split("/")[0].strip())
+    except (TypeError, ValueError):
+        logger.warning("Could not parse final_score %r; leaving it unchanged", raw)
+        return data
+    if value > maximum:
+        logger.warning("Model returned final_score %s; capping at %s", value, maximum)
+        value = maximum
+    data["final_score"] = f"{value}/{int(maximum)}"
+    return data
+
+
 def get_paper_review(conference, title, file_path, guidelines=None):
     prompt = get_prompt(title, conference, guidelines)
     file = _upload(file_path, display_name=title)
     response = _generate(prompt, file)
     data = _extract_json(response.text)
+    data = _cap_final_score(data)
 
     return data 
 
