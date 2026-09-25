@@ -122,6 +122,7 @@ required variable.
 | --- | --- |
 | `GET /health` | Liveness. Never touches the database |
 | `GET /health/db` | Readiness. Reports whether the database is reachable |
+| `GET /health/gemini` | Reports whether GEMINI_API_KEY is set, its shape, and whether it works |
 
 Check `/health/db` first when the API misbehaves; it returns the underlying
 driver error verbatim.

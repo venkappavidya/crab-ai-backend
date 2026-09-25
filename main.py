@@ -121,6 +121,45 @@ def health_check():
     return {"status": "healthy"}
 
 
+@app.get("/health/gemini", tags=["health"])
+def health_gemini():
+    """Report what the process sees for GEMINI_API_KEY, and whether it works.
+
+    Reports shape only, never the value: whether it is set, its length, its
+    first four characters, and whether it carries stray whitespace. Keys issued
+    by AI Studio begin with AIza; anything else is the wrong credential type.
+    """
+    raw = os.environ.get("GEMINI_API_KEY")
+    if raw is None:
+        return {
+            "configured": False,
+            "reason": "GEMINI_API_KEY is not set in the environment",
+            "hint": "An older revision of this README named it GOOGLE_API_KEY, which nothing reads",
+        }
+
+    stripped = raw.strip()
+    info = {
+        "configured": True,
+        "length": len(raw),
+        "prefix": stripped[:4],
+        "looks_like_ai_studio_key": stripped.startswith("AIza"),
+        "has_surrounding_whitespace": raw != stripped,
+        "also_sees_legacy_GOOGLE_API_KEY": "GOOGLE_API_KEY" in os.environ,
+    }
+
+    try:
+        import google.generativeai as genai
+
+        genai.configure(api_key=stripped)
+        names = [m.name for m in genai.list_models()][:1]
+        info["live_check"] = "ok"
+        info["example_model"] = names[0] if names else None
+    except Exception as exc:  # noqa: BLE001 - reported, not raised
+        info["live_check"] = "failed"
+        info["error"] = _redact(f"{type(exc).__name__}: {exc}")[:300]
+    return info
+
+
 @app.get("/health/db", tags=["health"])
 def health_db():
     """Readiness. Reports whether the database is actually reachable."""
