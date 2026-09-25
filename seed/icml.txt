@@ -35,3 +35,32 @@ to misuse.
 Reproducibility and Ethical Considerations are also scored. ICML requires
 reviewers to flag ethics concerns explicitly, covering bias, privacy, research
 integrity, and applications open to misuse.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       20%
+- Experimental Soundness:                    15%
+- Coherence Between Claims and Experiments:  10%
+- Originality:                               20%
+- Significance:                              20%
+- Clarity:                                   10%
+- Reproducibility:                            3%
+- Ethical Considerations:                     2%
+
+ICML weights soundness and originality equally with significance. Its own overall scale separates a technically solid paper from one that is also high impact, so a competent but unremarkable paper should land in the marginal band, not the accept band.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            7.5 or above
+- Marginal Accept:   6.5 to 7.4
+- Marginal Reject:   5.0 to 6.4
+- Reject:            below 5.0

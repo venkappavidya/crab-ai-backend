@@ -38,3 +38,32 @@ raises ethical concerns that deserve explicit discussion.
 Reproducibility and Ethical Considerations are also scored. Judge
 reproducibility against the contribution type: a theory paper is reproducible
 if the proofs can be followed, not if code is attached.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       18%
+- Experimental Soundness:                    12%
+- Coherence Between Claims and Experiments:  10%
+- Originality:                               22%
+- Significance:                              22%
+- Clarity:                                   10%
+- Reproducibility:                            4%
+- Ethical Considerations:                     2%
+
+NeurIPS asks whether others are likely to build on the work, so significance and originality carry the most weight. Experimental soundness is weighted lower because the contribution type governs what evidence is appropriate: a theory paper should not be penalised for the absence of experiments.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            8.0 or above
+- Marginal Accept:   7.0 to 7.9
+- Marginal Reject:   5.5 to 6.9
+- Reject:            below 5.5

@@ -39,7 +39,36 @@ to misuse.
 
 Reproducibility and Ethical Considerations are also scored. ICML requires
 reviewers to flag ethics concerns explicitly, covering bias, privacy, research
-integrity, and applications open to misuse.'),
+integrity, and applications open to misuse.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       20%
+- Experimental Soundness:                    15%
+- Coherence Between Claims and Experiments:  10%
+- Originality:                               20%
+- Significance:                              20%
+- Clarity:                                   10%
+- Reproducibility:                            3%
+- Ethical Considerations:                     2%
+
+ICML weights soundness and originality equally with significance. Its own overall scale separates a technically solid paper from one that is also high impact, so a competent but unremarkable paper should land in the marginal band, not the accept band.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            7.5 or above
+- Marginal Accept:   6.5 to 7.4
+- Marginal Reject:   5.0 to 6.4
+- Reject:            below 5.0'),
   ('ACL', 'ACL / ARR REVIEW GUIDANCE
 
 Source: https://aclrollingreview.org/reviewerguidelines
@@ -79,7 +108,36 @@ review defects regardless of whether the criticism is correct.
 
 Reproducibility is scored separately and ARR asks for it directly: judge
 whether another team could repeat the work from what is written, and say so
-plainly rather than folding it into soundness.'),
+plainly rather than folding it into soundness.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       22%
+- Experimental Soundness:                    18%
+- Coherence Between Claims and Experiments:  15%
+- Originality:                               12%
+- Significance:                              15%
+- Clarity:                                    8%
+- Reproducibility:                            7%
+- Ethical Considerations:                     3%
+
+ARR treats soundness as the primary judgement and excitement as explicitly orthogonal, so the soundness-related dimensions carry the most weight here and originality carries less than at other venues. Reproducibility is scored separately by ARR and is weighted higher than elsewhere. Thresholds are the strictest of the four, matching ACL''s selectivity.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            8.0 or above
+- Marginal Accept:   7.0 to 7.9
+- Marginal Reject:   5.5 to 6.9
+- Reject:            below 5.5'),
   ('NeurIPS', 'NeurIPS 2026 REVIEW GUIDANCE
 
 Source: https://neurips.cc/Conferences/2026/ReviewerGuidelines
@@ -119,7 +177,36 @@ raises ethical concerns that deserve explicit discussion.
 
 Reproducibility and Ethical Considerations are also scored. Judge
 reproducibility against the contribution type: a theory paper is reproducible
-if the proofs can be followed, not if code is attached.'),
+if the proofs can be followed, not if code is attached.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       18%
+- Experimental Soundness:                    12%
+- Coherence Between Claims and Experiments:  10%
+- Originality:                               22%
+- Significance:                              22%
+- Clarity:                                   10%
+- Reproducibility:                            4%
+- Ethical Considerations:                     2%
+
+NeurIPS asks whether others are likely to build on the work, so significance and originality carry the most weight. Experimental soundness is weighted lower because the contribution type governs what evidence is appropriate: a theory paper should not be penalised for the absence of experiments.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            8.0 or above
+- Marginal Accept:   7.0 to 7.9
+- Marginal Reject:   5.5 to 6.9
+- Reject:            below 5.5'),
   ('ICLR', 'ICLR REVIEW GUIDANCE
 
 Source: https://iclr.cc/Conferences/2025/ReviewerGuide
@@ -157,7 +244,36 @@ worth accepting.
 
 Reproducibility and Ethical Considerations are also scored. ICLR requires a
 Code of Ethics compliance judgement, so state explicitly whether the work
-raises ethical concerns rather than leaving the field empty.')
+raises ethical concerns rather than leaving the field empty.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       18%
+- Experimental Soundness:                    10%
+- Coherence Between Claims and Experiments:  14%
+- Originality:                               20%
+- Significance:                              20%
+- Clarity:                                   12%
+- Reproducibility:                            4%
+- Ethical Considerations:                     2%
+
+ICLR states that a lack of state-of-the-art results is not by itself grounds for rejection, so experimental soundness is the lowest-weighted of the substantive dimensions and coherence between claims and evidence is raised: the question is whether the claims made are supported, not whether a leaderboard was won. Thresholds are the most permissive of the four.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            7.0 or above
+- Marginal Accept:   6.0 to 6.9
+- Marginal Reject:   4.5 to 5.9
+- Reject:            below 4.5')
 )
 insert into conferences (name, guidelines)
 select i.name, i.guidelines
@@ -204,7 +320,36 @@ to misuse.
 
 Reproducibility and Ethical Considerations are also scored. ICML requires
 reviewers to flag ethics concerns explicitly, covering bias, privacy, research
-integrity, and applications open to misuse.'),
+integrity, and applications open to misuse.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       20%
+- Experimental Soundness:                    15%
+- Coherence Between Claims and Experiments:  10%
+- Originality:                               20%
+- Significance:                              20%
+- Clarity:                                   10%
+- Reproducibility:                            3%
+- Ethical Considerations:                     2%
+
+ICML weights soundness and originality equally with significance. Its own overall scale separates a technically solid paper from one that is also high impact, so a competent but unremarkable paper should land in the marginal band, not the accept band.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            7.5 or above
+- Marginal Accept:   6.5 to 7.4
+- Marginal Reject:   5.0 to 6.4
+- Reject:            below 5.0'),
   ('ACL', 'ACL / ARR REVIEW GUIDANCE
 
 Source: https://aclrollingreview.org/reviewerguidelines
@@ -244,7 +389,36 @@ review defects regardless of whether the criticism is correct.
 
 Reproducibility is scored separately and ARR asks for it directly: judge
 whether another team could repeat the work from what is written, and say so
-plainly rather than folding it into soundness.'),
+plainly rather than folding it into soundness.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       22%
+- Experimental Soundness:                    18%
+- Coherence Between Claims and Experiments:  15%
+- Originality:                               12%
+- Significance:                              15%
+- Clarity:                                    8%
+- Reproducibility:                            7%
+- Ethical Considerations:                     3%
+
+ARR treats soundness as the primary judgement and excitement as explicitly orthogonal, so the soundness-related dimensions carry the most weight here and originality carries less than at other venues. Reproducibility is scored separately by ARR and is weighted higher than elsewhere. Thresholds are the strictest of the four, matching ACL''s selectivity.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            8.0 or above
+- Marginal Accept:   7.0 to 7.9
+- Marginal Reject:   5.5 to 6.9
+- Reject:            below 5.5'),
   ('NeurIPS', 'NeurIPS 2026 REVIEW GUIDANCE
 
 Source: https://neurips.cc/Conferences/2026/ReviewerGuidelines
@@ -284,7 +458,36 @@ raises ethical concerns that deserve explicit discussion.
 
 Reproducibility and Ethical Considerations are also scored. Judge
 reproducibility against the contribution type: a theory paper is reproducible
-if the proofs can be followed, not if code is attached.'),
+if the proofs can be followed, not if code is attached.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       18%
+- Experimental Soundness:                    12%
+- Coherence Between Claims and Experiments:  10%
+- Originality:                               22%
+- Significance:                              22%
+- Clarity:                                   10%
+- Reproducibility:                            4%
+- Ethical Considerations:                     2%
+
+NeurIPS asks whether others are likely to build on the work, so significance and originality carry the most weight. Experimental soundness is weighted lower because the contribution type governs what evidence is appropriate: a theory paper should not be penalised for the absence of experiments.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            8.0 or above
+- Marginal Accept:   7.0 to 7.9
+- Marginal Reject:   5.5 to 6.9
+- Reject:            below 5.5'),
   ('ICLR', 'ICLR REVIEW GUIDANCE
 
 Source: https://iclr.cc/Conferences/2025/ReviewerGuide
@@ -322,7 +525,36 @@ worth accepting.
 
 Reproducibility and Ethical Considerations are also scored. ICLR requires a
 Code of Ethics compliance judgement, so state explicitly whether the work
-raises ethical concerns rather than leaving the field empty.')
+raises ethical concerns rather than leaving the field empty.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       18%
+- Experimental Soundness:                    10%
+- Coherence Between Claims and Experiments:  14%
+- Originality:                               20%
+- Significance:                              20%
+- Clarity:                                   12%
+- Reproducibility:                            4%
+- Ethical Considerations:                     2%
+
+ICLR states that a lack of state-of-the-art results is not by itself grounds for rejection, so experimental soundness is the lowest-weighted of the substantive dimensions and coherence between claims and evidence is raised: the question is whether the claims made are supported, not whether a leaderboard was won. Thresholds are the most permissive of the four.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            7.0 or above
+- Marginal Accept:   6.0 to 6.9
+- Marginal Reject:   4.5 to 5.9
+- Reject:            below 4.5')
 ) as i(name, guidelines)
 where c.name = i.name;
 

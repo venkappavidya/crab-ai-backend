@@ -36,3 +36,32 @@ worth accepting.
 Reproducibility and Ethical Considerations are also scored. ICLR requires a
 Code of Ethics compliance judgement, so state explicitly whether the work
 raises ethical concerns rather than leaving the field empty.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       18%
+- Experimental Soundness:                    10%
+- Coherence Between Claims and Experiments:  14%
+- Originality:                               20%
+- Significance:                              20%
+- Clarity:                                   12%
+- Reproducibility:                            4%
+- Ethical Considerations:                     2%
+
+ICLR states that a lack of state-of-the-art results is not by itself grounds for rejection, so experimental soundness is the lowest-weighted of the substantive dimensions and coherence between claims and evidence is raised: the question is whether the claims made are supported, not whether a leaderboard was won. Thresholds are the most permissive of the four.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            7.0 or above
+- Marginal Accept:   6.0 to 6.9
+- Marginal Reject:   4.5 to 5.9
+- Reject:            below 4.5

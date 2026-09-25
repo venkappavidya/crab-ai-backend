@@ -38,3 +38,32 @@ review defects regardless of whether the criticism is correct.
 Reproducibility is scored separately and ARR asks for it directly: judge
 whether another team could repeat the work from what is written, and say so
 plainly rather than folding it into soundness.
+
+SCORING FOR THIS VENUE
+
+Do not use a flat average of the eight category scores. Weight them as
+follows, then multiply by 2 to reach the 10-point final score:
+
+- Technical Soundness:                       22%
+- Experimental Soundness:                    18%
+- Coherence Between Claims and Experiments:  15%
+- Originality:                               12%
+- Significance:                              15%
+- Clarity:                                    8%
+- Reproducibility:                            7%
+- Ethical Considerations:                     3%
+
+ARR treats soundness as the primary judgement and excitement as explicitly orthogonal, so the soundness-related dimensions carry the most weight here and originality carries less than at other venues. Reproducibility is scored separately by ARR and is weighted higher than elsewhere. Thresholds are the strictest of the four, matching ACL's selectivity.
+
+Keep the exceptional-paper bonuses: a paper scoring 4.5 or above in at
+least three categories including Originality, and either Technical
+Soundness or Significance, gains 0.5. A paper scoring 5 in Originality and
+in either Technical Soundness or Significance gains 1.0. The final score may
+exceed 10 and is capped at 11.
+
+Decision thresholds for this venue, which replace the general ones above:
+
+- Accept:            8.0 or above
+- Marginal Accept:   7.0 to 7.9
+- Marginal Reject:   5.5 to 6.9
+- Reject:            below 5.5
