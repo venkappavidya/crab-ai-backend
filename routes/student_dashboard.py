@@ -5,7 +5,7 @@ from models.paper import Paper
 from models.user import User
 from models.review import Review
 from models.conference import Conference
-from utils.student_paper_review import generate_paper_summary,get_paper_review
+from utils.student_paper_review import generate_paper_summary, get_paper_review, upload_to_gemini
 import shutil
 import os
 from datetime import datetime
@@ -30,7 +30,11 @@ def get_student_papers(student_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/students/{student_id}/upload")
-async def upload_paper(student_id: int, conference: str = Form(...), file: UploadFile = File(...), db: Session = Depends(get_db)):
+# Deliberately `def`, not `async def`. Everything below blocks: the Gemini
+# upload and both model calls are synchronous and take tens of seconds. In an
+# async route that blocks the event loop, so a single upload makes the whole
+# service unresponsive. FastAPI runs a sync route in its threadpool instead.
+def upload_paper(student_id: int, conference: str = Form(...), file: UploadFile = File(...), db: Session = Depends(get_db)):
     """
     Upload a paper and validate it using Gemini API.
     """
@@ -49,9 +53,13 @@ async def upload_paper(student_id: int, conference: str = Form(...), file: Uploa
     conference_guidelines = conference_obj.guidelines
 
     # get summary and review from gemini
-    summary_result = generate_paper_summary(file_path)
+    # Upload once and reuse the handle: the summary and the review were each
+    # sending the same PDF to Gemini separately.
+    handle = upload_to_gemini(file_path)
+    summary_result = generate_paper_summary(file_path, handle=handle)
     review_result = get_paper_review(
-        conference_name, summary_result['title'], file_path, conference_guidelines
+        conference_name, summary_result['title'], file_path, conference_guidelines,
+        handle=handle,
     )
     print(review_result)
     try:

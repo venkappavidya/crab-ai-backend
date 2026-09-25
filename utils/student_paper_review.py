@@ -27,7 +27,7 @@ def _require_client():
     return client
 
 
-def _upload(file_path, display_name=None):
+def upload_to_gemini(file_path, display_name=None):
     """Upload a file and wait for the File API to finish processing it.
 
     A freshly uploaded file is PROCESSING for a moment, and referencing it
@@ -45,7 +45,7 @@ def _upload(file_path, display_name=None):
     return handle
 
 
-def _generate(prompt, handle, attempts=3):
+def _generate(prompt, handle, attempts=5):
     """Call the model, retrying the 503 the API returns when it is busy."""
     c = _require_client()
     last = None
@@ -56,8 +56,11 @@ def _generate(prompt, handle, attempts=3):
             last = exc
             if "503" not in str(exc) and "UNAVAILABLE" not in str(exc):
                 raise
-            logger.warning("Gemini busy (attempt %d/%d), retrying", attempt + 1, attempts)
-            time.sleep(2 * (attempt + 1))
+            wait = min(2 ** attempt, 16)
+            logger.warning(
+                "Gemini returned 503 (attempt %d/%d), retrying in %ss", attempt + 1, attempts, wait
+            )
+            time.sleep(wait)
     raise last
 
 
@@ -342,8 +345,8 @@ Your review must strictly follow the below structured JSON format:
     return prompt
 
 
-def generate_paper_summary(file_path):
-    file = _upload(file_path)
+def generate_paper_summary(file_path, handle=None):
+    file = handle or upload_to_gemini(file_path)
     
     prompt =  """
         Analyze and summarize each section in this research paper. 
@@ -381,9 +384,9 @@ def _cap_final_score(data, maximum=10.0):
     return data
 
 
-def get_paper_review(conference, title, file_path, guidelines=None):
+def get_paper_review(conference, title, file_path, guidelines=None, handle=None):
     prompt = get_prompt(title, conference, guidelines)
-    file = _upload(file_path, display_name=title)
+    file = handle or upload_to_gemini(file_path, display_name=title)
     response = _generate(prompt, file)
     data = _extract_json(response.text)
     data = _cap_final_score(data)
