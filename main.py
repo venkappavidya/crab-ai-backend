@@ -1,4 +1,5 @@
 import os
+import re
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
@@ -43,6 +44,23 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="CRAB.AI Backend", lifespan=lifespan)
 
+# Client libraries put credentials in URLs and messages. Returning an exception
+# verbatim to the browser therefore leaks them: the Gemini client embeds the API
+# key as a query parameter, so an upstream 400 would hand the key to any caller
+# who can trigger an error.
+_SECRET_PATTERNS = [
+    (re.compile(r"([?&](?:key|api_key|apikey|access_token|token)=)[^&\s\"\']+", re.I), r"\1[REDACTED]"),
+    (re.compile(r"(Bearer\s+)[A-Za-z0-9._\-]+", re.I), r"\1[REDACTED]"),
+    (re.compile(r"\b(postgresql?://[^:]+:)[^@]+(@)", re.I), r"\1[REDACTED]\2"),
+]
+
+
+def _redact(message: str) -> str:
+    for pattern, replacement in _SECRET_PATTERNS:
+        message = pattern.sub(replacement, message)
+    return message
+
+
 @app.middleware("http")
 async def catch_unhandled_errors(request: Request, call_next):
     """Turn an unhandled exception into a JSON 500 that still carries CORS headers.
@@ -58,7 +76,10 @@ async def catch_unhandled_errors(request: Request, call_next):
         logger.exception("Unhandled error on %s %s", request.method, request.url.path)
         return JSONResponse(
             status_code=500,
-            content={"detail": "Internal server error", "error": f"{type(exc).__name__}: {exc}"},
+            content={
+                "detail": "Internal server error",
+                "error": _redact(f"{type(exc).__name__}: {exc}"),
+            },
         )
 
 
