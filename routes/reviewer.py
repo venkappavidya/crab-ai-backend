@@ -39,7 +39,8 @@ def get_conference_papers(user_id: int, conference_id: int, db: Session = Depend
     
     papers = db.query(ConferencePaper).filter(ConferencePaper.conference_id == conference.id, ConferencePaper.year == current_year).all()
     if not papers:
-        raise HTTPException(status_code=404, detail="Papers not found for the current year")
+        # No submissions yet is an empty queue, not a missing resource.
+        return []
    
     response = []
     

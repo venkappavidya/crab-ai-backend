@@ -43,6 +43,25 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="CRAB.AI Backend", lifespan=lifespan)
 
+@app.middleware("http")
+async def catch_unhandled_errors(request: Request, call_next):
+    """Turn an unhandled exception into a JSON 500 that still carries CORS headers.
+
+    Starlette's built-in ServerErrorMiddleware sits outside the CORS middleware,
+    so a crash inside a route produces a bare 500 with no Access-Control-Allow-Origin
+    header. The browser then reports it as a CORS failure, which sends you looking
+    at CORS configuration when the real fault is an exception in the handler.
+    """
+    try:
+        return await call_next(request)
+    except Exception as exc:  # noqa: BLE001 - deliberately broad
+        logger.exception("Unhandled error on %s %s", request.method, request.url.path)
+        return JSONResponse(
+            status_code=500,
+            content={"detail": "Internal server error", "error": f"{type(exc).__name__}: {exc}"},
+        )
+
+
 # CORS. Set ALLOWED_ORIGINS to a comma-separated list to restrict it.
 origins = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "*").split(",") if o.strip()]
 app.add_middleware(

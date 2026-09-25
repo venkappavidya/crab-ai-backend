@@ -23,10 +23,10 @@ def get_student_papers(student_id: int, db: Session = Depends(get_db)):
     """
     Fetch all papers uploaded by a student.
     """
-    papers = db.query(Paper).filter(Paper.author_id == student_id).all()
-    if not papers:
-        raise HTTPException(status_code=404, detail="No papers found")
-    return papers
+    # An empty list is not a 404. Clients that treat any non-2xx as an error
+    # show nothing instead of an empty state, and the browser reports it as a
+    # failed request in the console.
+    return db.query(Paper).filter(Paper.author_id == student_id).all()
 
 
 @router.post("/students/{student_id}/upload")

@@ -2,7 +2,17 @@ import google.generativeai as genai
 import os
 import json
 
+from logging_config import logger
+
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    # configure(api_key=None) succeeds and fails later at call time with
+    # "API key not valid", which points at the key rather than at its absence.
+    logger.warning(
+        "GEMINI_API_KEY is not set. Paper review and summary calls will fail "
+        "with API_KEY_INVALID until it is configured."
+    )
 
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash')

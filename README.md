@@ -111,7 +111,7 @@ required variable.
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `DATABASE_URL` | yes | PostgreSQL connection string |
-| `GOOGLE_API_KEY` | for reviews | Gemini key used by the review pipeline |
+| `GEMINI_API_KEY` | for reviews | Gemini key used by the review pipeline |
 | `ALLOWED_ORIGINS` | no | Comma-separated browser origins. Defaults to `*` |
 | `ADMIN_TOKEN` | no | When set, `POST /conference/create` requires an `X-Admin-Token` header |
 | `PORT` | no | Defaults to 10000 |
