@@ -2,7 +2,7 @@ ICML 2026 REVIEW GUIDANCE
 
 Source: https://icml.cc/Conferences/2026/ReviewerInstructions
 
-ICML assesses four dimensions. Weigh the pipeline's six scores against them:
+ICML assesses four dimensions. Weigh the pipeline's scores against them:
 - Soundness: technical correctness, appropriate methodology, quality of the
   evidence offered for each claim. Maps to Technical Soundness and
   Experimental Soundness.
@@ -31,3 +31,7 @@ Assess whether the authors acknowledge their own limitations honestly, and
 whether societal impact is addressed where the work warrants it. Flag ethics
 concerns explicitly: bias, privacy, research integrity, or applications open
 to misuse.
+
+Reproducibility and Ethical Considerations are also scored. ICML requires
+reviewers to flag ethics concerns explicitly, covering bias, privacy, research
+integrity, and applications open to misuse.

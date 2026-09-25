@@ -43,11 +43,16 @@ async def upload_paper(student_id: int, conference: str = Form(...), file: Uploa
     if not conference_obj:
         raise HTTPException(status_code=404, detail="Conference not found")
 
-    conference_name = conference_obj.name  # Access the name correctly
+    conference_name = conference_obj.name
+    # Venue-specific reviewing guidance, stored per conference. Passing it here
+    # is what makes the review criteria differ between venues.
+    conference_guidelines = conference_obj.guidelines
 
     # get summary and review from gemini
     summary_result = generate_paper_summary(file_path)
-    review_result = get_paper_review(conference_name,summary_result['title'],file_path)
+    review_result = get_paper_review(
+        conference_name, summary_result['title'], file_path, conference_guidelines
+    )
     print(review_result)
     try:
         score_arr = review_result["final_score"].split("/")

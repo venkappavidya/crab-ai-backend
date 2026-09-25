@@ -7,7 +7,7 @@ with incoming (name, guidelines) as (
 
 Source: https://icml.cc/Conferences/2026/ReviewerInstructions
 
-ICML assesses four dimensions. Weigh the pipeline''s six scores against them:
+ICML assesses four dimensions. Weigh the pipeline''s scores against them:
 - Soundness: technical correctness, appropriate methodology, quality of the
   evidence offered for each claim. Maps to Technical Soundness and
   Experimental Soundness.
@@ -35,7 +35,11 @@ rebuttal. Vague dissatisfaction is not a question.
 Assess whether the authors acknowledge their own limitations honestly, and
 whether societal impact is addressed where the work warrants it. Flag ethics
 concerns explicitly: bias, privacy, research integrity, or applications open
-to misuse.'),
+to misuse.
+
+Reproducibility and Ethical Considerations are also scored. ICML requires
+reviewers to flag ethics concerns explicitly, covering bias, privacy, research
+integrity, and applications open to misuse.'),
   ('ACL', 'ACL / ARR REVIEW GUIDANCE
 
 Source: https://aclrollingreview.org/reviewerguidelines
@@ -71,7 +75,11 @@ ARR maintains an explicit list of reviewing failures. Do not:
 - Use citation counts as a proxy for validity
 
 Write in a neutral, professional register. Sarcasm and dismissiveness are
-review defects regardless of whether the criticism is correct.'),
+review defects regardless of whether the criticism is correct.
+
+Reproducibility is scored separately and ARR asks for it directly: judge
+whether another team could repeat the work from what is written, and say so
+plainly rather than folding it into soundness.'),
   ('NeurIPS', 'NeurIPS 2026 REVIEW GUIDANCE
 
 Source: https://neurips.cc/Conferences/2026/ReviewerGuidelines
@@ -107,7 +115,11 @@ Judging a theory paper by an empirical paper''s standards, or a feasibility
 study by a mature system''s standards, is a reviewing error.
 
 Assess whether limitations are acknowledged honestly and whether the work
-raises ethical concerns that deserve explicit discussion.'),
+raises ethical concerns that deserve explicit discussion.
+
+Reproducibility and Ethical Considerations are also scored. Judge
+reproducibility against the contribution type: a theory paper is reproducible
+if the proofs can be followed, not if code is attached.'),
   ('ICLR', 'ICLR REVIEW GUIDANCE
 
 Source: https://iclr.cc/Conferences/2025/ReviewerGuide
@@ -141,7 +153,11 @@ already reached. Conflating them wastes the rebuttal.
 
 Be constructive in tone and open-minded about value to the community beyond
 your own research interests. A paper need not be interesting to you to be
-worth accepting.')
+worth accepting.
+
+Reproducibility and Ethical Considerations are also scored. ICLR requires a
+Code of Ethics compliance judgement, so state explicitly whether the work
+raises ethical concerns rather than leaving the field empty.')
 )
 insert into conferences (name, guidelines)
 select i.name, i.guidelines
@@ -156,7 +172,7 @@ from (
 
 Source: https://icml.cc/Conferences/2026/ReviewerInstructions
 
-ICML assesses four dimensions. Weigh the pipeline''s six scores against them:
+ICML assesses four dimensions. Weigh the pipeline''s scores against them:
 - Soundness: technical correctness, appropriate methodology, quality of the
   evidence offered for each claim. Maps to Technical Soundness and
   Experimental Soundness.
@@ -184,7 +200,11 @@ rebuttal. Vague dissatisfaction is not a question.
 Assess whether the authors acknowledge their own limitations honestly, and
 whether societal impact is addressed where the work warrants it. Flag ethics
 concerns explicitly: bias, privacy, research integrity, or applications open
-to misuse.'),
+to misuse.
+
+Reproducibility and Ethical Considerations are also scored. ICML requires
+reviewers to flag ethics concerns explicitly, covering bias, privacy, research
+integrity, and applications open to misuse.'),
   ('ACL', 'ACL / ARR REVIEW GUIDANCE
 
 Source: https://aclrollingreview.org/reviewerguidelines
@@ -220,7 +240,11 @@ ARR maintains an explicit list of reviewing failures. Do not:
 - Use citation counts as a proxy for validity
 
 Write in a neutral, professional register. Sarcasm and dismissiveness are
-review defects regardless of whether the criticism is correct.'),
+review defects regardless of whether the criticism is correct.
+
+Reproducibility is scored separately and ARR asks for it directly: judge
+whether another team could repeat the work from what is written, and say so
+plainly rather than folding it into soundness.'),
   ('NeurIPS', 'NeurIPS 2026 REVIEW GUIDANCE
 
 Source: https://neurips.cc/Conferences/2026/ReviewerGuidelines
@@ -256,7 +280,11 @@ Judging a theory paper by an empirical paper''s standards, or a feasibility
 study by a mature system''s standards, is a reviewing error.
 
 Assess whether limitations are acknowledged honestly and whether the work
-raises ethical concerns that deserve explicit discussion.'),
+raises ethical concerns that deserve explicit discussion.
+
+Reproducibility and Ethical Considerations are also scored. Judge
+reproducibility against the contribution type: a theory paper is reproducible
+if the proofs can be followed, not if code is attached.'),
   ('ICLR', 'ICLR REVIEW GUIDANCE
 
 Source: https://iclr.cc/Conferences/2025/ReviewerGuide
@@ -290,7 +318,11 @@ already reached. Conflating them wastes the rebuttal.
 
 Be constructive in tone and open-minded about value to the community beyond
 your own research interests. A paper need not be interesting to you to be
-worth accepting.')
+worth accepting.
+
+Reproducibility and Ethical Considerations are also scored. ICLR requires a
+Code of Ethics compliance judgement, so state explicitly whether the work
+raises ethical concerns rather than leaving the field empty.')
 ) as i(name, guidelines)
 where c.name = i.name;
 

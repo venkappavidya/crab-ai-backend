@@ -34,3 +34,7 @@ ARR maintains an explicit list of reviewing failures. Do not:
 
 Write in a neutral, professional register. Sarcasm and dismissiveness are
 review defects regardless of whether the criticism is correct.
+
+Reproducibility is scored separately and ARR asks for it directly: judge
+whether another team could repeat the work from what is written, and say so
+plainly rather than folding it into soundness.

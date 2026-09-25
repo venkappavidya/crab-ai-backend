@@ -34,3 +34,7 @@ study by a mature system's standards, is a reviewing error.
 
 Assess whether limitations are acknowledged honestly and whether the work
 raises ethical concerns that deserve explicit discussion.
+
+Reproducibility and Ethical Considerations are also scored. Judge
+reproducibility against the contribution type: a theory paper is reproducible
+if the proofs can be followed, not if code is attached.

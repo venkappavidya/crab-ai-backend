@@ -32,3 +32,7 @@ already reached. Conflating them wastes the rebuttal.
 Be constructive in tone and open-minded about value to the community beyond
 your own research interests. A paper need not be interesting to you to be
 worth accepting.
+
+Reproducibility and Ethical Considerations are also scored. ICLR requires a
+Code of Ethics compliance judgement, so state explicitly whether the work
+raises ethical concerns rather than leaving the field empty.

@@ -7,8 +7,8 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
-def get_prompt(paper_title,conference):
-    return '''You are an expert reviewer for the {conference} conference, responsible for evaluating research papers with depth, fairness, and accuracy. **Your primary responsibility is to create clear score differentiation between three tiers of papers:**
+def get_prompt(paper_title, conference, guidelines=None):
+    prompt = '''You are an expert reviewer for the {conference} conference, responsible for evaluating research papers with depth, fairness, and accuracy. **Your primary responsibility is to create clear score differentiation between three tiers of papers:**
 
 - **BAD PAPERS**: Must receive appropriately LOW scores (1-4 out of 10)
 - **GOOD PAPERS**: Must receive appropriately HIGH scores (7-8.5 out of 10)
@@ -207,7 +207,7 @@ Your review must strictly follow the below structured JSON format:
 ```
 {
   "title": "{paper_title}",
-  "conference": "ACL",
+  "conference": "{conference}",
   "final_score": "X/10",
   "decision": "Accept/Marginal Accept/Marginal Reject/Reject",
   "reviews": [{
@@ -256,6 +256,22 @@ Your review must strictly follow the below structured JSON format:
 
 🔹 **IMPORTANT REMINDER FOR IDENTIFYING "BEST PAPERS"**: The conference's ability to recognize truly exceptional work depends on your willingness to assign top scores (5) to deserving papers. If all reviewers avoid giving 5s, the best papers cannot be properly identified. Outstanding papers should receive outstanding scores.'''
 
+    prompt = prompt.replace("{conference}", conference or "the target")
+    prompt = prompt.replace("{paper_title}", paper_title or "Untitled")
+
+    if guidelines and guidelines.strip():
+        prompt += (
+            "\n\n---\n\n## Venue-specific reviewing guidance for "
+            + conference
+            + "\n\nThe following is the official reviewing guidance for this venue. "
+            "Where it conflicts with the general instructions above, this guidance "
+            "wins. Apply it when assigning every score below, and reflect it in your "
+            "written comments.\n\n"
+            + guidelines.strip()
+        )
+
+    return prompt
+
 
 def generate_paper_summary(file_path):
     file = genai.upload_file(file_path, display_name="My Document")
@@ -280,9 +296,8 @@ def generate_paper_summary(file_path):
 
 
 
-def get_paper_review(conference,title, file_path):
-    print(conference)
-    prompt = get_prompt(title,conference)
+def get_paper_review(conference, title, file_path, guidelines=None):
+    prompt = get_prompt(title, conference, guidelines)
     file = genai.upload_file(file_path, display_name=title)
     
     
