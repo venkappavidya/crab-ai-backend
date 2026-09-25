@@ -28,6 +28,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from dotenv import load_dotenv  # noqa: E402
+
+# Must run before importing database.db, which reads DATABASE_URL at import.
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+
 from database.db import get_sessionmaker, init_models  # noqa: E402
 from models.conference import Conference  # noqa: E402
 from models.conference_paper import ConferencePaper  # noqa: E402
