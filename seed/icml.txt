@@ -1,0 +1,33 @@
+ICML 2026 REVIEW GUIDANCE
+
+Source: https://icml.cc/Conferences/2026/ReviewerInstructions
+
+ICML assesses four dimensions. Weigh the pipeline's six scores against them:
+- Soundness: technical correctness, appropriate methodology, quality of the
+  evidence offered for each claim. Maps to Technical Soundness and
+  Experimental Soundness.
+- Presentation: clarity of writing, structure, and how well the work is
+  situated in existing literature. Maps to Clarity.
+- Significance: relevance of the problem and likely impact on the field.
+  Maps to Significance.
+- Originality: new insights, new methods or tasks, or a creative combination
+  of existing techniques. Maps to Originality.
+
+ICML's own overall scale runs 1-6, where 6 is a technically flawless paper
+with exceptional impact, 4 is technically solid with some weaknesses, 3 means
+clear merits that are outweighed by weaknesses, and 1 is a well-known result
+or an incomprehensible contribution. Calibrate the /10 final score to that
+shape: reserve the top band for work that is both technically solid and high
+impact, not merely competent.
+
+Judge the paper on soundness first. A well-written paper with an unsupported
+central claim is not a strong paper. Conversely, a technically correct result
+that is poorly presented should lose points on Clarity, not on Soundness.
+
+Ask 3-5 specific, numbered questions the authors could actually answer in a
+rebuttal. Vague dissatisfaction is not a question.
+
+Assess whether the authors acknowledge their own limitations honestly, and
+whether societal impact is addressed where the work warrants it. Flag ethics
+concerns explicitly: bias, privacy, research integrity, or applications open
+to misuse.

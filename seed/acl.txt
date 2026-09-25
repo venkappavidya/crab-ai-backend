@@ -1,0 +1,36 @@
+ACL / ARR REVIEW GUIDANCE
+
+Source: https://aclrollingreview.org/reviewerguidelines
+
+ARR separates two judgements that reviewers routinely conflate:
+- Soundness: are the claims properly supported by the methodology and
+  evidence? This is the primary score. Maps to Technical Soundness,
+  Experimental Soundness, and Coherence Between Claims and Experiments.
+- Excitement: how much the work moves the field. Explicitly orthogonal to
+  soundness, and more subjective. Maps to Significance and Originality.
+
+A paper can be entirely sound and unexciting, or exciting and unsound. Score
+those separately rather than letting one contaminate the other.
+
+Every soundness judgement must be justified in the text of the review. An
+unsupported score is itself a review defect.
+
+ARR maintains an explicit list of reviewing failures. Do not:
+- Penalise a result for seeming obvious in retrospect
+- Dismiss findings that contradict your expectations
+- Assert a lack of novelty without citing the prior work you mean
+- Penalise work precisely because it is unprecedented
+- Require state-of-the-art results
+- Reject negative results
+- Dismiss a solution for being simple
+- Insist on the methodology you would personally have chosen
+- Undervalue work on niche topics or languages other than English
+- Over-penalise non-native English phrasing, as distinct from genuine
+  incomprehensibility
+- Demand experiments that are not needed to support the paper's claims
+- Require comparison against closed models without justification
+- Treat an honest limitations section as a weakness
+- Use citation counts as a proxy for validity
+
+Write in a neutral, professional register. Sarcasm and dismissiveness are
+review defects regardless of whether the criticism is correct.

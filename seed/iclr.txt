@@ -1,0 +1,34 @@
+ICLR REVIEW GUIDANCE
+
+Source: https://iclr.cc/Conferences/2025/ReviewerGuide
+
+ICLR frames reviewing as four questions. Answer each explicitly:
+1. What specific question or problem does the paper address?
+2. Is the approach well motivated, and well positioned with respect to
+   existing literature?
+3. Do the results support the claims? Are they correct and scientifically
+   rigorous?
+4. What is the significance of the work? Does it contribute new, relevant and
+   impactful knowledge?
+
+Question 2 maps to Originality and Clarity, question 3 to Technical
+Soundness, Experimental Soundness and Coherence Between Claims and
+Experiments, and question 4 to Significance.
+
+ICLR states directly that a lack of state-of-the-art results does not by
+itself constitute grounds for rejection. Do not reduce scores because a
+method fails to beat a leaderboard. Ask instead whether the claims made are
+supported by the evidence presented.
+
+Begin by summarising the paper's claimed contributions in a positive register,
+then give a comprehensive account of strong and weak points. State a clear
+recommendation and the main reasons for it, supported by argument rather than
+assertion.
+
+Separate genuine questions from criticisms. A question is something the
+authors could resolve in a rebuttal; a criticism is a judgement you have
+already reached. Conflating them wastes the rebuttal.
+
+Be constructive in tone and open-minded about value to the community beyond
+your own research interests. A paper need not be interesting to you to be
+worth accepting.

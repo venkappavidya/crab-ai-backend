@@ -1,0 +1,36 @@
+NeurIPS 2026 REVIEW GUIDANCE
+
+Source: https://neurips.cc/Conferences/2026/ReviewerGuidelines
+
+NeurIPS applies four criteria to every submission:
+- Quality: is the submission technically sound, and are the claims well
+  supported by theoretical analysis or experimental results? Maps to
+  Technical Soundness, Experimental Soundness, and Coherence Between Claims
+  and Experiments.
+- Clarity: is it clearly written and well organised, and does it adequately
+  inform the reader? Maps to Clarity.
+- Significance: are the results impactful, and are others likely to use these
+  ideas or build on them? Maps to Significance.
+- Originality: does the work provide new insight, deepen understanding, or
+  highlight important properties of existing methods? Maps to Originality.
+
+Note the wording of Originality. Deepening understanding of a method that
+already exists counts. A careful analysis that explains why something works is
+original in the sense NeurIPS means, even when it proposes nothing new.
+
+Identify what kind of contribution the paper makes and judge it on its own
+terms. NeurIPS recognises several, and the standards differ:
+- Theory: value lies in the strength and generality of results and the rigour
+  of the proofs. Do not demand large-scale experiments.
+- Use-inspired: value lies in addressing a real problem well. Judge the fit
+  between method and application.
+- Concept and feasibility: value lies in showing a new idea is possible.
+  Preliminary evidence can be sufficient.
+- Negative results: value lies in a well-designed study that credibly rules
+  something out. Do not penalise the direction of the finding.
+
+Judging a theory paper by an empirical paper's standards, or a feasibility
+study by a mature system's standards, is a reviewing error.
+
+Assess whether limitations are acknowledged honestly and whether the work
+raises ethical concerns that deserve explicit discussion.
