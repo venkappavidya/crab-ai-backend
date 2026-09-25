@@ -24,7 +24,6 @@ crab_ai.db
 uploads/
 
 # Render deployment artifacts
-render.yaml
 
 # IDE & Editor settings
 .vscode/

@@ -101,3 +101,57 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 ## Acknowledgments
 
 Special thanks to all contributors and the open-source community for their invaluable support.
+
+
+## Configuration
+
+Copy `.env.example` to `.env` and fill it in. `DATABASE_URL` is the only
+required variable.
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `DATABASE_URL` | yes | PostgreSQL connection string |
+| `GOOGLE_API_KEY` | for reviews | Gemini key used by the review pipeline |
+| `ALLOWED_ORIGINS` | no | Comma-separated browser origins. Defaults to `*` |
+| `PORT` | no | Defaults to 10000 |
+
+## Health checks
+
+| Endpoint | Meaning |
+| --- | --- |
+| `GET /health` | Liveness. Never touches the database |
+| `GET /health/db` | Readiness. Reports whether the database is reachable |
+
+Check `/health/db` first when the API misbehaves; it returns the underlying
+driver error verbatim.
+
+## Startup behaviour
+
+The database connection is created lazily and tables are prepared inside the
+FastAPI lifespan handler. An unreachable database no longer prevents the
+process from starting: the service boots, `/health` answers, and data
+endpoints return `503 Database unavailable` until the database recovers.
+
+This matters on hosted platforms. When the app crashed during import it never
+bound a port, so the platform router had nothing to forward to and requests
+hung until they timed out, with no error to read.
+
+## Deploying
+
+Any host that runs a Python web service works. Set the environment variables
+above, then:
+
+```
+Build:  pip install -r requirements.txt
+Start:  uvicorn main:app --host 0.0.0.0 --port $PORT
+```
+
+Dependency versions are pinned in `requirements.txt` so a redeploy installs
+the same versions that were tested.
+
+### A note on free PostgreSQL
+
+Render's free PostgreSQL instances expire 30 days after creation and are
+deleted after a further 14-day grace period, taking their data with them. If
+the API stops responding after a few months of quiet, check whether the
+database still exists before debugging anything else.
