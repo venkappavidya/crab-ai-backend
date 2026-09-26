@@ -17,6 +17,26 @@ class ReviewRequest(BaseModel):
 
 
 router = APIRouter()
+
+
+def _available_reviews(paper):
+    """Return only the models that actually produced a review.
+
+    The client reads review['reviews'][0]['numerical_ratings'] for every entry
+    in this list. Sending a model with review=None makes that dereference a
+    null and the dashboard renders a blank page. Only Gemini is wired up, so
+    the other slots are empty until a model is connected.
+    """
+    candidates = [
+        ("Gemini", paper.review_gemini),
+        ("Claude", paper.review_claude),
+        ("OpenAI", paper.review_openai),
+        ("Perplexity", paper.review_perplexity),
+        ("Deepseek", paper.review_deepseek),
+    ]
+    return [{"model": name, "review": review} for name, review in candidates if review]
+
+
 UPLOAD_FOLDER = "uploads/guidelines"
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
@@ -56,20 +76,7 @@ def get_conference_papers(user_id: int, conference_id: int, db: Session = Depend
                 'status':paper.status,
                 'score':'',
                 'pdfUrl': paper.path,
-                'reviews':[
-                    {
-                        'model':'Gemini',
-                        'review':paper.review_gemini
-                    },
-                    {
-                        'model':'Perplexity',
-                        'review':paper.review_perplexity
-                    },
-                    {
-                        'model':'Deepseek',
-                    'review':paper.review_deepseek
-                    }
-                ],
+                'reviews': _available_reviews(paper),
                 'summary':paper.summary,
                 'finalDecision':{
                     'reviewer':paper.reviewer_name,
@@ -88,20 +95,7 @@ def get_conference_papers(user_id: int, conference_id: int, db: Session = Depend
                 'status':paper.status,
                 'score':'',
                 'pdfUrl': paper.path,
-                'reviews':[
-                    {
-                        'model':'Gemini',
-                        'review':paper.review_gemini
-                    },
-                    {
-                        'model':'Perplexity',
-                        'review':paper.review_perplexity
-                    },
-                    {
-                        'model':'Deepseek',
-                    'review':paper.review_deepseek
-                    }
-                ],
+                'reviews': _available_reviews(paper),
                 'summary':paper.summary
                 
             })
@@ -159,20 +153,7 @@ def submit_review(conference_id:int, user_id:int,request: ReviewRequest, db: Ses
                 'status':paper.status,
                 'score':'',
                 'pdfUrl': paper.path,
-                'reviews':[
-                    {
-                        'model':'Gemini',
-                        'review':paper.review_gemini
-                    },
-                    {
-                        'model':'Perplexity',
-                        'review':paper.review_perplexity
-                    },
-                    {
-                        'model':'Deepseek',
-                    'review':paper.review_deepseek
-                    }
-                ],
+                'reviews': _available_reviews(paper),
                 'summary':paper.summary,
                 'finalDecision':{
                     'reviewer':paper.reviewer_name,
@@ -191,20 +172,7 @@ def submit_review(conference_id:int, user_id:int,request: ReviewRequest, db: Ses
                 'status':paper.status,
                 'score':'',
                 'pdfUrl': paper.path,
-                'reviews':[
-                    {
-                        'model':'Gemini',
-                        'review':paper.review_gemini
-                    },
-                    {
-                        'model':'Perplexity',
-                        'review':paper.review_perplexity
-                    },
-                    {
-                        'model':'Deepseek',
-                    'review':paper.review_deepseek
-                    }
-                ],
+                'reviews': _available_reviews(paper),
                 'summary':paper.summary
                 
             })
