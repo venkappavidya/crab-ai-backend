@@ -88,6 +88,9 @@ def main():
     ap.add_argument("--count", type=int, default=3)
     ap.add_argument("--category", help="arXiv category, defaults to one matching the venue")
     ap.add_argument("--no-review", action="store_true", help="Skip Gemini; store the abstract only")
+    ap.add_argument("--weak", metavar="DIR",
+                    help="Seed synthetic weak papers from a directory of PDFs instead of arXiv. "
+                         "Used to demonstrate low scores without passing judgement on real work.")
     ap.add_argument("--year", type=int, default=datetime.utcnow().year)
     args = ap.parse_args()
 
@@ -99,16 +102,32 @@ def main():
         names = [c.name for c in session.query(Conference).all()]
         sys.exit(f"No conference named {args.conference!r}. Known: {names}")
 
-    category = args.category or CATEGORY.get(args.conference.upper(), "cs.LG")
-    print(f"Fetching {args.count} papers from arXiv {category} for {conference.name}")
-    papers = fetch_arxiv(category, args.count)
+    if args.weak:
+        # Deliberately poor papers, written for this purpose. Real papers are
+        # never seeded as rejections: publishing a low score against someone's
+        # actual work in a demo would be unfair to its authors.
+        pdfs = sorted(Path(args.weak).glob("*.pdf"))[: args.count]
+        if not pdfs:
+            sys.exit(f"No PDFs found in {args.weak}")
+        papers = [{
+            "title": None,            # taken from the model's own summary
+            "authors": ["Synthetic sample"],
+            "abstract": "Synthetic weak submission used to exercise the reject path.",
+            "pdf_url": None,
+            "local": str(path),
+        } for path in pdfs]
+        print(f"Seeding {len(papers)} synthetic weak paper(s) for {conference.name}")
+    else:
+        category = args.category or CATEGORY.get(args.conference.upper(), "cs.LG")
+        print(f"Fetching {args.count} papers from arXiv {category} for {conference.name}")
+        papers = fetch_arxiv(category, args.count)
 
     tmp = Path("uploads/seed")
     tmp.mkdir(parents=True, exist_ok=True)
     added = 0
 
     for i, paper in enumerate(papers, 1):
-        exists = (
+        exists = paper["title"] and (
             session.query(ConferencePaper)
             .filter(
                 ConferencePaper.title == paper["title"],
@@ -135,12 +154,16 @@ def main():
                 upload_to_gemini,
             )
 
-            local = tmp / f"{conference.name.lower()}_{i}.pdf"
-            print(f"  [{i}/{len(papers)}] downloading {paper['title'][:50]}")
+            local = paper.get("local") or (tmp / f"{conference.name.lower()}_{i}.pdf")
+            label = paper["title"] or Path(str(local)).name
+            print(f"  [{i}/{len(papers)}] processing {label[:50]}")
             try:
-                download(paper["pdf_url"], local)
+                if not paper.get("local"):
+                    download(paper["pdf_url"], local)
                 handle = upload_to_gemini(str(local))
                 summary = generate_paper_summary(str(local), handle=handle)
+                if not paper["title"]:
+                    paper["title"] = summary.get("title") or Path(str(local)).stem
                 review = get_paper_review(
                     conference.name, summary.get("title", paper["title"]),
                     str(local), conference.guidelines, handle=handle,
@@ -157,7 +180,7 @@ def main():
             review_gemini=review,
             status="Pending",
             year=args.year,
-            path=paper["pdf_url"],
+            path=paper["pdf_url"] or f"uploads/seed/{Path(str(paper.get('local',''))).name}",
         ))
         session.commit()
         added += 1

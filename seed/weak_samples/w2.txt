@@ -1,0 +1,31 @@
+An Investigation of Language Models Using Prompts
+
+Abstract
+Large language models are powerful. We investigate them using prompts. We tried
+several prompts and report what happened. Our findings show that prompts matter.
+
+1. Introduction
+Language models such as GPT are widely used. Prompting is a technique where you
+give the model text. In this work we investigate prompting. This is an important
+topic because many people use prompts.
+
+2. Related Work
+Other people have studied prompting. We are aware of this literature.
+
+3. Approach
+We wrote ten prompts by hand. We gave the prompts to a language model. We looked
+at the outputs and judged whether they were good. One author did the judging.
+We did not define criteria in advance.
+
+4. Findings
+Some prompts produced better outputs than other prompts. Longer prompts
+sometimes helped. Shorter prompts sometimes helped too. It depends. We did not
+measure statistical significance because the sample was small.
+
+5. Discussion
+Our findings suggest prompts are important. This agrees with intuition. There
+are limitations: we used one model, ten prompts, and one annotator. We did not
+release our prompts.
+
+6. Conclusion
+Prompting matters. Future work should investigate further.
