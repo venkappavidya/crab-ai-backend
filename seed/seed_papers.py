@@ -13,7 +13,8 @@ pipeline a student upload would use, and inserts them.
 the summary and leaves the AI review empty. The default runs the real pipeline,
 which takes roughly 30 seconds per paper.
 
-Papers are inserted with status "Pending" so they appear in the review queue.
+Papers are inserted with status "Reviewed", which is what the dashboard's
+Need Review tab matches: the AI review is done, a human decision is not.
 They are real publications that were not actually submitted to these venues;
 this is sample data for exercising the interface.
 """
@@ -178,7 +179,12 @@ def main():
             conference_id=conference.id,
             summary=summary,
             review_gemini=review,
-            status="Pending",
+            # "Reviewed" is the status the reviewer dashboard's Need Review tab
+            # filters on, and it gates the AI summary panel. It means the AI
+            # review is done and a human decision is outstanding. "Pending"
+            # matches no tab, so such rows count toward the total and appear
+            # nowhere.
+            status="Reviewed",
             year=args.year,
             path=paper["pdf_url"] or f"uploads/seed/{Path(str(paper.get('local',''))).name}",
         ))
